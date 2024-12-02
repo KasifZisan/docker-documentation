@@ -1,0 +1,6 @@
+site_name: Docker Documentation
+
+nav:
+  - Docker: index.md
+  - Docker-Compose: docker-compose.md
+
