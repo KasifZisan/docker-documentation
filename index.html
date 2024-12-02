@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Docker Documentation</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">Docker Documentation</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem active">
+                                <a href="." class="nav-link">Docker</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="docker-compose/" class="nav-link">Docker-Compose</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" class="nav-link disabled">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="docker-compose/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#docker" class="nav-link">Docker</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#what-is-docker" class="nav-link">What is Docker?</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-docker-architecture" class="nav-link">The Docker Architecture</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#installing-docker" class="nav-link">Installing Docker</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#creating-and-executing-docker-containers" class="nav-link">Creating and Executing Docker Containers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#images-vs-containers" class="nav-link">Images vs Containers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#images-from-the-dockerfile" class="nav-link">Images from the Dockerfile</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#port-mapping" class="nav-link">Port Mapping</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#docker-networks" class="nav-link">Docker Networks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#docker-volumes" class="nav-link">Docker Volumes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#tagging" class="nav-link">Tagging</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#dockerhub" class="nav-link">DockerHub</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="docker">Docker</h1>
+<h2 id="what-is-docker">What is Docker?</h2>
+<h4 id="docker_1">Docker</h4>
+<p>Docker is a platform designed to simplify the process of creating, deploying, and running applications using containers. <strong>Containers</strong> are lightweight, portable, and consistent environments that package an application and its dependencies together. This means that a Docker container can run on any system that supports Docker, without worrying about compatibility issues between the application and the host system.</p>
+<h4 id="difference-between-docker-and-vm">Difference between Docker and VM</h4>
+<p>The main difference between Docker and Virtual Machines (VMs) lies in how they virtualize resources and manage isolation for applications. </p>
+<p>Docker containers virtualize at the operating system level. They share the host OS kernel, meaning all containers run on the same operating system but in isolated environments. Containers package only the application and its dependencies, making them lightweight and fast.</p>
+<p>VMs virtualize at the hardware level. Each VM runs its own operating system (guest OS) on top of a hypervisor (software that manages multiple VMs on a host machine). VMs include an entire OS, libraries, and the application, making them larger and slower to boot than containers.</p>
+<h2 id="the-docker-architecture">The Docker Architecture</h2>
+<p>Docker uses a client-server architecture. The server is a <strong>Docker Daemon</strong>. And the client is a <strong>Docker-CLI</strong>. The client and server communicate between them using <strong>REST API</strong> over a UNIX socket or network interface. The client manages objects such as- Images, Containers, Networks, Data Volumes etc.</p>
+<h4 id="namespaces">Namespaces</h4>
+<p>In Docker, namespaces are a fundamental Linux kernel feature that provide the isolation necessary to run containers. There are several different namespaces in Docker:
+- pid namespace: Process Isolation
+- net namespace: managing network interfaces
+- ipc namespace: managing interprocess communication
+- mnt namespace: managing filesystem mountpoints
+- uts namespace: isolating kernel and version identifiers</p>
+<h4 id="control-groups-cgroups">Control Groups (CGroups)</h4>
+<ul>
+<li>Resource Limiting: Limits resources for docker containers to a certain threshold.</li>
+<li>Prioritization: Some groups may get a larger shrare of CPU utilization or disk I/O throughput.</li>
+<li>Accounting: Measures a groups resource usage.</li>
+<li>Control: Freezing groups of process.</li>
+</ul>
+<h4 id="union-file-system-unionfs">Union File System (UnionFS)</h4>
+<ul>
+<li>Merging: Initially docker containers have a base image. UnionFS merges any new layer of changes with the existing image.</li>
+<li>Read/Write: Branches can be read-only or read-write.</li>
+</ul>
+<h2 id="installing-docker">Installing Docker</h2>
+<p>The below installation instructions are written for Ubuntu24.04 LTS.</p>
+<ul>
+<li>Step 1: Add user to docker group if not already a member</li>
+</ul>
+<pre><code class="language-bash">sudo usermod -aG docker $USER
+newgrp docker
+</code></pre>
+<ul>
+<li>Step 2: Docker Installation</li>
+</ul>
+<pre><code class="language-bash">sudo apt update -y
+sudo apt install docker.io -y
+sudo systemctl enable docker
+</code></pre>
+<ul>
+<li>Step 3: Check Docker Installation</li>
+</ul>
+<pre><code class="language-bash">docker --version
+</code></pre>
+<h2 id="creating-and-executing-docker-containers">Creating and Executing Docker Containers</h2>
+<ul>
+<li>To create a Docker Container with ubuntu OS - <code>docker run -it ubuntu /bin/bash</code> (the <code>-it</code> flag runs the command iteratively, keeping the stdin in the terminal enabled)</li>
+</ul>
+<h2 id="images-vs-containers">Images vs Containers</h2>
+<h4 id="docker-images">Docker Images</h4>
+<p>A Docker image is a read-only template that contains all the instructions and dependencies needed to run an application. It includes the application code, libraries, environment variables, configuration files, and other necessary components.</p>
+<p>Images are static and immutable. If you need to update an image, you must rebuild it by modifying the Dockerfile or creating a new version.</p>
+<p>Images are created using a <strong>Dockerfile</strong>, which is a script containing instructions to assemble an image step by step (e.g., install dependencies, set environment variables). Images can also be pulled from registries like Docker Hub or other repositories.</p>
+<ul>
+<li>
+<p>You can take a look at existing docker images using - <code>docker images</code></p>
+</li>
+<li>
+<p>You can inspect a docker image using - <code>docker inspect &lt;image-name&gt;</code></p>
+</li>
+<li>
+<p>To remove a docker image - <code>docker rmi &lt;docker-image&gt;</code></p>
+</li>
+</ul>
+<h4 id="docker-containers">Docker Containers</h4>
+<p>A Docker container is a runtime instance of a Docker image. It represents the execution of an image in a live, running environment. </p>
+<p>Containers are mutable. A container can change during its lifetime. For example, you can install additional software inside a running container or modify files. However, changes made to a container do not persist in the original image</p>
+<p>Containers are created from images using the docker run command. You can start multiple containers from a single image, each running in isolation.</p>
+<p>Containers are <strong>ephemeral</strong> by default. They exist only while running, and any changes made are typically lost when the container is stopped or deleted. However, containers can use <strong>volumes</strong> to persist data outside the container’s lifecycle.</p>
+<ul>
+<li>
+<p>You can check the running containers using - <code>docker ps</code></p>
+</li>
+<li>
+<p>You can also check previously launched containers using - <code>docker ps -a</code></p>
+</li>
+<li>
+<p>You can also start a stopped contrainer using - <code>docker start &lt;container-name&gt;</code></p>
+</li>
+<li>
+<p>After starting the docker container, to interact with it you can - <code>docker attach &lt;container-name&gt;</code></p>
+</li>
+<li>
+<p>If you want to remove all of your existing containers - <code>docker container prune</code></p>
+</li>
+<li>
+<p>If you want to remove a specific docker container - <code>docker rm &lt;container-name&gt;</code></p>
+</li>
+</ul>
+<h2 id="images-from-the-dockerfile">Images from the Dockerfile</h2>
+<p><a href="https://docs.docker.com/reference/dockerfile/">Dockerfile Documentation</a></p>
+<p>You can create docker images using Dockerfile -</p>
+<ul>
+<li>
+<p>If your Dockerfile is in the current directory - <code>docker build .</code> </p>
+</li>
+<li>
+<p>Otherwise, you can mention the path - <code>docker build &lt;Dockerfile path&gt;</code></p>
+</li>
+<li>
+<p>If you have used anyother filename for the Dockerfile, except for the default "Dockerfile" name - <code>docker build -f &lt;Dockerfile name&gt;</code></p>
+</li>
+</ul>
+<p>If you build it this way you will see that the docker image has no repository name and TAG. You can assign it using - </p>
+<pre><code class="language-bash">docker tag &lt;ImageID&gt; &lt;dockerhub-username&gt;/&lt;repo-name&gt;:&lt;tag&gt; .
+</code></pre>
+<p>If you want to create a docker image using Dockerfile with Repo and Tag name -
+- <code>docker build -t &lt;repo-name&gt;:&lt;tag&gt; .</code></p>
+<p>Now that you have a docker image, you can run it using - <code>docker run -d &lt;repo-name&gt;</code> (the <code>-d</code> flag runs the command in detached mode)</p>
+<p>If you want to detach from a container without stopping the container - <code>CTRL + p</code> and then <code>CTRL + q</code></p>
+<h2 id="port-mapping">Port Mapping</h2>
+<p>If you used <code>EXPOSE 8080</code> or <code>EXPOSE 5000</code> in your Dockerfile, it will expose that port for the container. By default, docker containers work using a network called the Bridge Network. The ports can be accessed using the containers' IP Address. You can get the containers IP address using - <code>docker inspect &lt;container-name&gt;</code>. You can access an exposed port using - <code>curl &lt;IP-address&gt;:&lt;port&gt;</code></p>
+<p>If you want to bind the exposed port to the host then you can do so with the publish <code>-p</code> or publish all <code>-P</code>.</p>
+<p>For example, I have exposed 5000 port in my dockerfile, and after building the docker image, I can run it on a specific port on the host using - </p>
+<pre><code class="language-bash">docker run -d -p &lt;host port&gt;:&lt;container port&gt;
+curl localhost:&lt;host port&gt;
+</code></pre>
+<h2 id="docker-networks">Docker Networks</h2>
+<p>To look at existing networks on the localhost - <code>docker network ls</code></p>
+<p>If we want to get the IP address from a container - <code>ip addr show</code></p>
+<p>If we run multiple containers on the same network, and then we want to see all of the containers - <code>arp-scan --interface=eth0 --localnet</code></p>
+<p>There are three types of networking for Docker -</p>
+<ul>
+<li>
+<p>Bridge Network</p>
+</li>
+<li>
+<p>Host Network - <code>docker run -it --network=host &lt;repo-name&gt;</code></p>
+</li>
+<li>
+<p>None Network - <code>docker run -it --network=none &lt;repo-name&gt;</code></p>
+</li>
+</ul>
+<h2 id="docker-volumes">Docker Volumes</h2>
+<p><a href="https://spacelift.io/blog/docker-volumes">Docker Volumes Tutorial</a></p>
+<p>Different layers make up a docker image. The last layer is a writable layer. But whenever the container stops, all of the data is gone. To solve this docker provides three options - </p>
+<ul>
+<li>
+<p>Bind Mounts - Mounting a file or directory that is in the host and binding it to the container. The mounts are on the host, we just need to know the path of the mount. </p>
+</li>
+<li>
+<p>Volumes - Volumes are managed by Dockers. You don't need to know the exact file paths. They can be stored on the host but also externally for example, AWS S3, Google Cloud Storage etc.</p>
+</li>
+<li>
+<p>In-memory Storage (tmpfs) - Temporary file system. Commonly used to store sensitive information such as Access Tokens etc.</p>
+</li>
+</ul>
+<h4 id="creating-a-docker-volume">Creating a Docker Volume</h4>
+<ul>
+<li>
+<p>First create a Dockerfile and build the docker image - <code>docker build -t sample-docker-image .</code></p>
+</li>
+<li>
+<p>Create a Docker volume - <code>docker volume sample-docker-volume</code></p>
+</li>
+<li>
+<p>Run the Docker container using the previously created Docker Image and Volume - </p>
+</li>
+</ul>
+<pre><code class="language-yml">docker run -d --name sample-docker-container -v sample-docker-volume:/&lt;path&gt; sample-docker-image
+</code></pre>
+<ul>
+<li>Now you can put some data, for example - a .txt file in this path.</li>
+</ul>
+<p>This will create a Docker container named <code>sample-docker-container</code> along with a docker volume named <code>sample-docker-volume</code>.</p>
+<p>Now to test that the Docker volume actually works - </p>
+<ul>
+<li>
+<p>Create another docker image and run the container.</p>
+</li>
+<li>
+<p>Access the path that was the volume path. </p>
+</li>
+<li>
+<p>Now see if you can access the data.</p>
+</li>
+</ul>
+<p>To remove a docker volume - <code>docker volume rm &lt;volume-name&gt;</code></p>
+<h2 id="tagging">Tagging</h2>
+<p>If we build an Image without specifying any tags, by default it will use the tag "latest" - <code>docker build -t &lt;image-name&gt; .</code>
+We can also change the tag of a built image using - <code>docker tag &lt;image-name&gt;:&lt;previous tag&gt; &lt;image name&gt;:&lt;new tag&gt;</code></p>
+<p>If we want to tag a docker image using the GitHub commit ID, we can use - </p>
+<pre><code class="language-yml">docker build -t &lt;repo-name&gt;:&lt;service&gt;-${{ github.sha }}
+</code></pre>
+<h2 id="dockerhub">DockerHub</h2>
+<p>Dockerhub is a docker image repository. To push your image into DockerHub -</p>
+<ul>
+<li>
+<p>Create a DockerHub account.</p>
+</li>
+<li>
+<p>Create a Repository.</p>
+</li>
+<li>
+<p>Best practice is to build your image in this format - </p>
+</li>
+</ul>
+<pre><code class="language-yaml">docker build -t &lt;Dockerhub username&gt;/&lt;repo-name&gt;:&lt;service&gt;-${{ github.sha }}
+</code></pre>
+<ul>
+<li>To push your image into docker - </li>
+</ul>
+<pre><code class="language-yaml">docker push &lt;dockerhub username&gt;/&lt;repo name&gt;:&lt;service&gt;-${{ github.sha }}
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js"></script>
+        <script src="search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.5.3
+Build Date UTC : 2024-12-02 12:02:03.249611+00:00
+-->
