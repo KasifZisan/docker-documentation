@@ -17,6 +17,7 @@ Docker uses a client-server architecture. The server is a **Docker Daemon**. And
 
 #### Namespaces
 In Docker, namespaces are a fundamental Linux kernel feature that provide the isolation necessary to run containers. There are several different namespaces in Docker:
+
 - pid namespace: Process Isolation
 - net namespace: managing network interfaces
 - ipc namespace: managing interprocess communication
@@ -47,14 +48,13 @@ sudo apt update -y
 sudo apt install docker.io -y
 sudo systemctl enable docker
 ```
-
 - Step 3: Check Docker Installation
 ```bash
 docker --version
 ```
 
 ## Creating and Executing Docker Containers
-- To create a Docker Container with ubuntu OS - ```docker run -it ubuntu /bin/bash``` (the ```-it``` flag runs the command iteratively, keeping the stdin in the terminal enabled)
+To create a Docker Container with ubuntu OS - ```docker run -it ubuntu /bin/bash``` (the ```-it``` flag runs the command iteratively, keeping the stdin in the terminal enabled)
 
 ## Images vs Containers
 #### Docker Images
@@ -65,9 +65,7 @@ Images are static and immutable. If you need to update an image, you must rebuil
 Images are created using a **Dockerfile**, which is a script containing instructions to assemble an image step by step (e.g., install dependencies, set environment variables). Images can also be pulled from registries like Docker Hub or other repositories.
 
 - You can take a look at existing docker images using - ```docker images```
-
 - You can inspect a docker image using - ```docker inspect <image-name>```
-
 - To remove a docker image - ```docker rmi <docker-image>```
 
 #### Docker Containers
@@ -80,15 +78,10 @@ Containers are created from images using the docker run command. You can start m
 Containers are **ephemeral** by default. They exist only while running, and any changes made are typically lost when the container is stopped or deleted. However, containers can use **volumes** to persist data outside the container’s lifecycle.
 
 - You can check the running containers using - ```docker ps```
-
 - You can also check previously launched containers using - ```docker ps -a```
-
 - You can also start a stopped contrainer using - ```docker start <container-name>```
-
 - After starting the docker container, to interact with it you can - ```docker attach <container-name>```
-
 - If you want to remove all of your existing containers - ```docker container prune```
-
 - If you want to remove a specific docker container - ```docker rm <container-name>```
 
 ## Images from the Dockerfile
@@ -97,9 +90,7 @@ Containers are **ephemeral** by default. They exist only while running, and any 
 You can create docker images using Dockerfile -
 
 - If your Dockerfile is in the current directory - ```docker build .``` 
-
 - Otherwise, you can mention the path - ```docker build <Dockerfile path>```
-
 - If you have used anyother filename for the Dockerfile, except for the default "Dockerfile" name - ```docker build -f <Dockerfile name>```
 
 If you build it this way you will see that the docker image has no repository name and TAG. You can assign it using - 
@@ -135,9 +126,7 @@ If we run multiple containers on the same network, and then we want to see all o
 There are three types of networking for Docker -
 
 - Bridge Network
-
 - Host Network - ```docker run -it --network=host <repo-name>```
-
 - None Network - ```docker run -it --network=none <repo-name>```
 
 ## Docker Volumes
@@ -146,21 +135,17 @@ There are three types of networking for Docker -
 Different layers make up a docker image. The last layer is a writable layer. But whenever the container stops, all of the data is gone. To solve this docker provides three options - 
 
 - Bind Mounts - Mounting a file or directory that is in the host and binding it to the container. The mounts are on the host, we just need to know the path of the mount. 
-
 - Volumes - Volumes are managed by Dockers. You don't need to know the exact file paths. They can be stored on the host but also externally for example, AWS S3, Google Cloud Storage etc.
-
 - In-memory Storage (tmpfs) - Temporary file system. Commonly used to store sensitive information such as Access Tokens etc.
 
 #### Creating a Docker Volume
+
 - First create a Dockerfile and build the docker image - ```docker build -t sample-docker-image .```
-
 - Create a Docker volume - ```docker volume sample-docker-volume```
-
 - Run the Docker container using the previously created Docker Image and Volume - 
 ```yml
 docker run -d --name sample-docker-container -v sample-docker-volume:/<path> sample-docker-image
 ```
-
 - Now you can put some data, for example - a .txt file in this path.
 
 This will create a Docker container named ```sample-docker-container``` along with a docker volume named ```sample-docker-volume```.
@@ -168,9 +153,7 @@ This will create a Docker container named ```sample-docker-container``` along wi
 Now to test that the Docker volume actually works - 
 
 - Create another docker image and run the container.
-
 - Access the path that was the volume path. 
-
 - Now see if you can access the data.
 
 To remove a docker volume - ```docker volume rm <volume-name>```
@@ -188,14 +171,11 @@ docker build -t <repo-name>:<service>-${{ github.sha }}
 Dockerhub is a docker image repository. To push your image into DockerHub -
 
 - Create a DockerHub account.
-
 - Create a Repository.
-
 - Best practice is to build your image in this format - 
 ```yaml
 docker build -t <Dockerhub username>/<repo-name>:<service>-${{ github.sha }}
 ```
-
 - To push your image into docker - 
 ```yaml
 docker push <dockerhub username>/<repo name>:<service>-${{ github.sha }}
