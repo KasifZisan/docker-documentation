@@ -83,6 +83,7 @@ Containers are **ephemeral** by default. They exist only while running, and any 
 - After starting the docker container, to interact with it you can - ```docker attach <container-name>```
 - If you want to remove all of your existing containers - ```docker container prune```
 - If you want to remove a specific docker container - ```docker rm <container-name>```
+- If you want to ```exec``` into a container - ```docker exec -it <container-id> \bin\bash```
 
 ## Images from the Dockerfile
 [Dockerfile Documentation](https://docs.docker.com/reference/dockerfile/)

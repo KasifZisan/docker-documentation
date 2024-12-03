@@ -136,12 +136,14 @@
 <h2 id="the-docker-architecture">The Docker Architecture</h2>
 <p>Docker uses a client-server architecture. The server is a <strong>Docker Daemon</strong>. And the client is a <strong>Docker-CLI</strong>. The client and server communicate between them using <strong>REST API</strong> over a UNIX socket or network interface. The client manages objects such as- Images, Containers, Networks, Data Volumes etc.</p>
 <h4 id="namespaces">Namespaces</h4>
-<p>In Docker, namespaces are a fundamental Linux kernel feature that provide the isolation necessary to run containers. There are several different namespaces in Docker:
-- pid namespace: Process Isolation
-- net namespace: managing network interfaces
-- ipc namespace: managing interprocess communication
-- mnt namespace: managing filesystem mountpoints
-- uts namespace: isolating kernel and version identifiers</p>
+<p>In Docker, namespaces are a fundamental Linux kernel feature that provide the isolation necessary to run containers. There are several different namespaces in Docker:</p>
+<ul>
+<li>pid namespace: Process Isolation</li>
+<li>net namespace: managing network interfaces</li>
+<li>ipc namespace: managing interprocess communication</li>
+<li>mnt namespace: managing filesystem mountpoints</li>
+<li>uts namespace: isolating kernel and version identifiers</li>
+</ul>
 <h4 id="control-groups-cgroups">Control Groups (CGroups)</h4>
 <ul>
 <li>Resource Limiting: Limits resources for docker containers to a certain threshold.</li>
@@ -175,24 +177,16 @@ sudo systemctl enable docker
 <pre><code class="language-bash">docker --version
 </code></pre>
 <h2 id="creating-and-executing-docker-containers">Creating and Executing Docker Containers</h2>
-<ul>
-<li>To create a Docker Container with ubuntu OS - <code>docker run -it ubuntu /bin/bash</code> (the <code>-it</code> flag runs the command iteratively, keeping the stdin in the terminal enabled)</li>
-</ul>
+<p>To create a Docker Container with ubuntu OS - <code>docker run -it ubuntu /bin/bash</code> (the <code>-it</code> flag runs the command iteratively, keeping the stdin in the terminal enabled)</p>
 <h2 id="images-vs-containers">Images vs Containers</h2>
 <h4 id="docker-images">Docker Images</h4>
 <p>A Docker image is a read-only template that contains all the instructions and dependencies needed to run an application. It includes the application code, libraries, environment variables, configuration files, and other necessary components.</p>
 <p>Images are static and immutable. If you need to update an image, you must rebuild it by modifying the Dockerfile or creating a new version.</p>
 <p>Images are created using a <strong>Dockerfile</strong>, which is a script containing instructions to assemble an image step by step (e.g., install dependencies, set environment variables). Images can also be pulled from registries like Docker Hub or other repositories.</p>
 <ul>
-<li>
-<p>You can take a look at existing docker images using - <code>docker images</code></p>
-</li>
-<li>
-<p>You can inspect a docker image using - <code>docker inspect &lt;image-name&gt;</code></p>
-</li>
-<li>
-<p>To remove a docker image - <code>docker rmi &lt;docker-image&gt;</code></p>
-</li>
+<li>You can take a look at existing docker images using - <code>docker images</code></li>
+<li>You can inspect a docker image using - <code>docker inspect &lt;image-name&gt;</code></li>
+<li>To remove a docker image - <code>docker rmi &lt;docker-image&gt;</code></li>
 </ul>
 <h4 id="docker-containers">Docker Containers</h4>
 <p>A Docker container is a runtime instance of a Docker image. It represents the execution of an image in a live, running environment. </p>
@@ -200,38 +194,20 @@ sudo systemctl enable docker
 <p>Containers are created from images using the docker run command. You can start multiple containers from a single image, each running in isolation.</p>
 <p>Containers are <strong>ephemeral</strong> by default. They exist only while running, and any changes made are typically lost when the container is stopped or deleted. However, containers can use <strong>volumes</strong> to persist data outside the container’s lifecycle.</p>
 <ul>
-<li>
-<p>You can check the running containers using - <code>docker ps</code></p>
-</li>
-<li>
-<p>You can also check previously launched containers using - <code>docker ps -a</code></p>
-</li>
-<li>
-<p>You can also start a stopped contrainer using - <code>docker start &lt;container-name&gt;</code></p>
-</li>
-<li>
-<p>After starting the docker container, to interact with it you can - <code>docker attach &lt;container-name&gt;</code></p>
-</li>
-<li>
-<p>If you want to remove all of your existing containers - <code>docker container prune</code></p>
-</li>
-<li>
-<p>If you want to remove a specific docker container - <code>docker rm &lt;container-name&gt;</code></p>
-</li>
+<li>You can check the running containers using - <code>docker ps</code></li>
+<li>You can also check previously launched containers using - <code>docker ps -a</code></li>
+<li>You can also start a stopped contrainer using - <code>docker start &lt;container-name&gt;</code></li>
+<li>After starting the docker container, to interact with it you can - <code>docker attach &lt;container-name&gt;</code></li>
+<li>If you want to remove all of your existing containers - <code>docker container prune</code></li>
+<li>If you want to remove a specific docker container - <code>docker rm &lt;container-name&gt;</code></li>
 </ul>
 <h2 id="images-from-the-dockerfile">Images from the Dockerfile</h2>
 <p><a href="https://docs.docker.com/reference/dockerfile/">Dockerfile Documentation</a></p>
 <p>You can create docker images using Dockerfile -</p>
 <ul>
-<li>
-<p>If your Dockerfile is in the current directory - <code>docker build .</code> </p>
-</li>
-<li>
-<p>Otherwise, you can mention the path - <code>docker build &lt;Dockerfile path&gt;</code></p>
-</li>
-<li>
-<p>If you have used anyother filename for the Dockerfile, except for the default "Dockerfile" name - <code>docker build -f &lt;Dockerfile name&gt;</code></p>
-</li>
+<li>If your Dockerfile is in the current directory - <code>docker build .</code> </li>
+<li>Otherwise, you can mention the path - <code>docker build &lt;Dockerfile path&gt;</code></li>
+<li>If you have used anyother filename for the Dockerfile, except for the default "Dockerfile" name - <code>docker build -f &lt;Dockerfile name&gt;</code></li>
 </ul>
 <p>If you build it this way you will see that the docker image has no repository name and TAG. You can assign it using - </p>
 <pre><code class="language-bash">docker tag &lt;ImageID&gt; &lt;dockerhub-username&gt;/&lt;repo-name&gt;:&lt;tag&gt; .
@@ -253,41 +229,23 @@ curl localhost:&lt;host port&gt;
 <p>If we run multiple containers on the same network, and then we want to see all of the containers - <code>arp-scan --interface=eth0 --localnet</code></p>
 <p>There are three types of networking for Docker -</p>
 <ul>
-<li>
-<p>Bridge Network</p>
-</li>
-<li>
-<p>Host Network - <code>docker run -it --network=host &lt;repo-name&gt;</code></p>
-</li>
-<li>
-<p>None Network - <code>docker run -it --network=none &lt;repo-name&gt;</code></p>
-</li>
+<li>Bridge Network</li>
+<li>Host Network - <code>docker run -it --network=host &lt;repo-name&gt;</code></li>
+<li>None Network - <code>docker run -it --network=none &lt;repo-name&gt;</code></li>
 </ul>
 <h2 id="docker-volumes">Docker Volumes</h2>
 <p><a href="https://spacelift.io/blog/docker-volumes">Docker Volumes Tutorial</a></p>
 <p>Different layers make up a docker image. The last layer is a writable layer. But whenever the container stops, all of the data is gone. To solve this docker provides three options - </p>
 <ul>
-<li>
-<p>Bind Mounts - Mounting a file or directory that is in the host and binding it to the container. The mounts are on the host, we just need to know the path of the mount. </p>
-</li>
-<li>
-<p>Volumes - Volumes are managed by Dockers. You don't need to know the exact file paths. They can be stored on the host but also externally for example, AWS S3, Google Cloud Storage etc.</p>
-</li>
-<li>
-<p>In-memory Storage (tmpfs) - Temporary file system. Commonly used to store sensitive information such as Access Tokens etc.</p>
-</li>
+<li>Bind Mounts - Mounting a file or directory that is in the host and binding it to the container. The mounts are on the host, we just need to know the path of the mount. </li>
+<li>Volumes - Volumes are managed by Dockers. You don't need to know the exact file paths. They can be stored on the host but also externally for example, AWS S3, Google Cloud Storage etc.</li>
+<li>In-memory Storage (tmpfs) - Temporary file system. Commonly used to store sensitive information such as Access Tokens etc.</li>
 </ul>
 <h4 id="creating-a-docker-volume">Creating a Docker Volume</h4>
 <ul>
-<li>
-<p>First create a Dockerfile and build the docker image - <code>docker build -t sample-docker-image .</code></p>
-</li>
-<li>
-<p>Create a Docker volume - <code>docker volume sample-docker-volume</code></p>
-</li>
-<li>
-<p>Run the Docker container using the previously created Docker Image and Volume - </p>
-</li>
+<li>First create a Dockerfile and build the docker image - <code>docker build -t sample-docker-image .</code></li>
+<li>Create a Docker volume - <code>docker volume sample-docker-volume</code></li>
+<li>Run the Docker container using the previously created Docker Image and Volume - </li>
 </ul>
 <pre><code class="language-yml">docker run -d --name sample-docker-container -v sample-docker-volume:/&lt;path&gt; sample-docker-image
 </code></pre>
@@ -297,15 +255,9 @@ curl localhost:&lt;host port&gt;
 <p>This will create a Docker container named <code>sample-docker-container</code> along with a docker volume named <code>sample-docker-volume</code>.</p>
 <p>Now to test that the Docker volume actually works - </p>
 <ul>
-<li>
-<p>Create another docker image and run the container.</p>
-</li>
-<li>
-<p>Access the path that was the volume path. </p>
-</li>
-<li>
-<p>Now see if you can access the data.</p>
-</li>
+<li>Create another docker image and run the container.</li>
+<li>Access the path that was the volume path. </li>
+<li>Now see if you can access the data.</li>
 </ul>
 <p>To remove a docker volume - <code>docker volume rm &lt;volume-name&gt;</code></p>
 <h2 id="tagging">Tagging</h2>
@@ -317,15 +269,9 @@ We can also change the tag of a built image using - <code>docker tag &lt;image-n
 <h2 id="dockerhub">DockerHub</h2>
 <p>Dockerhub is a docker image repository. To push your image into DockerHub -</p>
 <ul>
-<li>
-<p>Create a DockerHub account.</p>
-</li>
-<li>
-<p>Create a Repository.</p>
-</li>
-<li>
-<p>Best practice is to build your image in this format - </p>
-</li>
+<li>Create a DockerHub account.</li>
+<li>Create a Repository.</li>
+<li>Best practice is to build your image in this format - </li>
 </ul>
 <pre><code class="language-yaml">docker build -t &lt;Dockerhub username&gt;/&lt;repo-name&gt;:&lt;service&gt;-${{ github.sha }}
 </code></pre>
@@ -416,5 +362,5 @@ We can also change the tag of a built image using - <code>docker tag &lt;image-n
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2024-12-02 12:02:03.249611+00:00
+Build Date UTC : 2024-12-03 06:36:14.672031+00:00
 -->
