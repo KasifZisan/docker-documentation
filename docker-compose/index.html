@@ -78,7 +78,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#docker-compose_1" class="nav-link">Docker Compose</a>
+            <li class="nav-item" data-level="2"><a href="#docker-compose-files" class="nav-link">Docker Compose Files</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#compose-command-line-interface" class="nav-link">Compose Command-Line Interface</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -95,32 +99,24 @@
 <p>By using Docker compose, we can manage multi container environments using a Declarative approach, instead of the traditional imperative approach by using just docker commands.</p>
 <h4 id="docker-compose-parts">Docker Compose Parts</h4>
 <ul>
-<li>
-<p>Compose File: Declare the services in your application</p>
-</li>
-<li>
-<p>Command-line Interface: The docker compose command line has many of the same commands as docker. You can check out the commands by using <code>docker-compose</code>. You can run the docker compose file by simply using <code>docker compose up -d</code>. Similary, to stop docker compose, just write <code>docker compose down</code>.</p>
-</li>
+<li><strong>Compose File:</strong> Declare the services in your application</li>
+<li><strong>Command-line Interface:</strong> The docker compose command line has many of the same commands as docker. You can check out the commands by using <code>docker-compose</code>. You can run the docker compose file by simply using <code>docker compose up -d</code>. Similary, to stop docker compose, just write <code>docker compose down</code>.</li>
 </ul>
-<h2 id="docker-compose_1">Docker Compose</h2>
+<h2 id="docker-compose-files">Docker Compose Files</h2>
 <h4 id="yaml">YAML</h4>
 <p>YAML is a data serialization language. YAML files can have the extension <code>.yaml</code> or <code>.yml</code>.</p>
-<p><strong>YAML Data Types</strong>
-- Integers
-- Strings
-- Null
-- Booleans</p>
+<p><strong>YAML Data Types</strong></p>
+<ul>
+<li>Integers</li>
+<li>Strings</li>
+<li>Null</li>
+<li>Booleans</li>
+</ul>
 <p><strong>YAML Collections: Mappings</strong></p>
 <ul>
-<li>
-<p>Mappings: Key-Value pairs.</p>
-</li>
-<li>
-<p>Nested Mappings </p>
-</li>
-<li>
-<p>Inline Nested Mappings</p>
-</li>
+<li>Mappings: Key-Value pairs.</li>
+<li>Nested Mappings </li>
+<li>Inline Nested Mappings</li>
 </ul>
 <p><strong>YAML Collections: Sequences</strong>
 Sequences are indicated by <code>-</code> sign. </p>
@@ -129,47 +125,37 @@ Comments start with <code>#</code>.</p>
 <h4 id="compose-files">Compose Files</h4>
 <p>Root elements of file mapping</p>
 <ul>
-<li>
-<p>version</p>
-</li>
-<li>
-<p>services</p>
-</li>
-<li>
-<p>volumes</p>
-</li>
-<li>
-<p>networks</p>
-</li>
+<li>version</li>
+<li>services</li>
+<li>volumes</li>
+<li>networks</li>
 </ul>
 <p><strong>Compose File Version:</strong> key: value pair - <code>version: '3.8'</code></p>
 <p><strong>Compose File Services:</strong> Services in your application. Nested mapping of services under the <code>services</code> key. Configuration options in a further nested mapping.</p>
 <p><strong>Compose File Service Caveats:</strong> </p>
 <ul>
-<li>
-<p>Some configurations only apply to Swarm mode.</p>
-</li>
-<li>
-<p>Some are specified on the command-line.</p>
-</li>
+<li>Some configurations only apply to Swarm mode.</li>
+<li>Some are specified on the command-line.</li>
 </ul>
 <p><strong>Compose File Dependencies</strong></p>
 <ul>
-<li>
-<p><code>depends_on</code> - can use this command to specify what this service depends on</p>
-</li>
-<li>
-<p>links</p>
-</li>
+<li><code>depends_on</code> - can use this command to specify what this service depends on</li>
+<li>links</li>
+</ul>
+<p><strong>Compose File Service Configuration</strong></p>
+<p>Compose file key - </p>
+<ul>
+<li>Specify Image: image</li>
+<li>Specify volume: volumes</li>
+<li>Publish ports on host: ports</li>
+<li>Environment variables: environment</li>
+<li>Logging: logging</li>
+<li>Security options: security_opt</li>
 </ul>
 <p><strong>Compose File Volumes</strong></p>
 <ul>
-<li>
-<p>Allows naming and sharing of volumes</p>
-</li>
-<li>
-<p>Supports <code>external</code> volumes</p>
-</li>
+<li>Allows naming and sharing of volumes</li>
+<li>Supports <code>external</code> volumes</li>
 </ul>
 <pre><code class="language-yaml">volumes:
     named-volume:
@@ -182,7 +168,57 @@ One network is created by default, which is the <code>bridge</code> network. It 
     service1:
     service2:
         external: true
-</code></pre></div>
+</code></pre>
+<p><strong>Extension Fields</strong></p>
+<ul>
+<li>Extension fields helps us reuse configuration fragments</li>
+<li>Extension fields are indicated by using root keys beginning with <code>x-</code></li>
+<li>It uses YAML anchors</li>
+</ul>
+<p>Example Extension fields</p>
+<pre><code class="language-yaml">x-logging: #extension field
+    &amp;default-logging #using yaml anchors
+    options:
+    driver:
+
+service:
+    web:
+        image:
+        logging: *default-logging
+</code></pre>
+<h2 id="compose-command-line-interface">Compose Command-Line Interface</h2>
+<h4 id="features">Features</h4>
+<ul>
+<li>Run multiple isolated environments on a single host</li>
+<li>Parallel execution model</li>
+<li>Compose file change detection. Everytime you build a container using compose, it stores the container configuration as cache. So the next time you run it, it can run directly from the cache if no changes are made but it can also detect the changes.</li>
+</ul>
+<h4 id="commands">Commands</h4>
+<p><code>docker-compose [OPTIONS] [COMMAND] [ARGS]</code></p>
+<p>Compose will use the docker daemon on the host by default.</p>
+<ul>
+<li>Can connect to remote hosts with -H</li>
+<li>Secure remote connections with --tls* options</li>
+<li>The default file for docker-compose is - <code>docker-compose.(yml|yaml)</code>. But you can use the <code>-f</code> flag to specify alternatives.</li>
+<li>
+<p>Each isolated application is associated with a project in compose. The project is given a name and that name appears in resources that get created by Compose. You can assign a custom compose name using a <code>-p</code> flag.</p>
+</li>
+<li>
+<p><code>docker-compose up -d</code> </p>
+<ul>
+<li>Creates network and named volumes</li>
+<li>Builds, creates, starts, and attaches to service containers.</li>
+<li>Performs change detection</li>
+</ul>
+</li>
+<li>
+<p><code>docker-compose down -d</code></p>
+<ul>
+<li>Removes service containers, named and default networks</li>
+<li>Leaves volumes and images by default.</li>
+</ul>
+</li>
+</ul></div>
             </div>
         </div>
 
