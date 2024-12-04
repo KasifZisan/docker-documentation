@@ -84,6 +84,11 @@ Containers are **ephemeral** by default. They exist only while running, and any 
 - If you want to remove all of your existing containers - ```docker container prune```
 - If you want to remove a specific docker container - ```docker rm <container-name>```
 - If you want to ```exec``` into a container - ```docker exec -it <container-id> \bin\bash```
+- If your container keeps stopping because of database connection or message breaking issues, you can use the ```tail -f /dev/null``` command to run the container - 
+```bash
+docker run -d --name visa-api-nonroot-container -p 3000:3000 visa-api-nonroot:v1.0.1 tail -f /dev/null
+```
+
 
 ## Images from the Dockerfile
 [Dockerfile Documentation](https://docs.docker.com/reference/dockerfile/)
