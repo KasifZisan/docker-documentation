@@ -200,7 +200,11 @@ sudo systemctl enable docker
 <li>After starting the docker container, to interact with it you can - <code>docker attach &lt;container-name&gt;</code></li>
 <li>If you want to remove all of your existing containers - <code>docker container prune</code></li>
 <li>If you want to remove a specific docker container - <code>docker rm &lt;container-name&gt;</code></li>
+<li>If you want to <code>exec</code> into a container - <code>docker exec -it &lt;container-id&gt; \bin\bash</code></li>
+<li>If your container keeps stopping because of database connection or message breaking issues, you can use the <code>tail -f /dev/null</code> command to run the container - </li>
 </ul>
+<pre><code class="language-bash">docker run -d --name visa-api-nonroot-container -p 3000:3000 visa-api-nonroot:v1.0.1 tail -f /dev/null
+</code></pre>
 <h2 id="images-from-the-dockerfile">Images from the Dockerfile</h2>
 <p><a href="https://docs.docker.com/reference/dockerfile/">Dockerfile Documentation</a></p>
 <p>You can create docker images using Dockerfile -</p>
@@ -362,5 +366,5 @@ We can also change the tag of a built image using - <code>docker tag &lt;image-n
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2024-12-03 06:36:14.672031+00:00
+Build Date UTC : 2024-12-04 10:02:12.178971+00:00
 -->
